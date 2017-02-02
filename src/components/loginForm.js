@@ -11,13 +11,13 @@ class loginForm extends React.Component {
 
     return (
       <div>
-        <form id="login">
+        <form id='login'>
           <h3>Please Login</h3>
             <fieldset>
-              <input ref="username" name="username" placeholder="Your name" type="text" />
+              <input ref='username' placeholder='Your Name' type='text' />
             </fieldset>
             <fieldset>
-              <input ref="password" name="password" placeholder="Your Password" type="password" />
+              <input ref='password' placeholder='Your Password' type='password' />
             </fieldset>
             <fieldset>
               <button onClick={this.handleClick.bind(this)}>
@@ -32,6 +32,7 @@ class loginForm extends React.Component {
   handleClick(e){
     e.preventDefault()
     const username = this.refs.username.value
+    console.log('loginForm username', username);
     const password = this.refs.password.value
 
     request.post('api/v1/login')
