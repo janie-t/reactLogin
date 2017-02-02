@@ -8,7 +8,7 @@ const ReactDOM = require('react-dom')
 const { Provider } = require('react-redux')
 const { createStore } = require('redux')
 const createHistory = require('history').createHashHistory
-const { Router, Route, IndexRoute, hashHistory } = require('react-router')
+const { Router, Route, IndexRoute, browserHistory } = require('react-router')
 const reducer = require('./reducer')
 const initialState = require('../state')
 
@@ -22,7 +22,7 @@ const store = createStore(reducer, initialState)
 const Root = ({store}) => {
 	return (
 			<Provider store={store}>
-				<Router history={hashHistory}>
+				<Router history={browserHistory}>
 					<Route path='/' component={App} store={store}>
 						<Route path='/login' component={LoginForm} />
 						<Route path='/profile' component={Profile} />
