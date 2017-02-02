@@ -47,7 +47,7 @@ module.exports = function (db) {
 
   app.use('/', express.static(path.join(__dirname, 'public'))) //static files
 
-  app.use('/api/v1/data', api.myRoute(db)) //routes
+  app.use('/api/v1/', api.myRoute(db)) //routes
 
   app.use(function(req, res, next) {
    const err = new Error('Not Found')

@@ -1,10 +1,12 @@
 const React = require('react')
-const Form = require('./form').default
-console.log("Form",Form);
+const Form = require('./form')
+const { connect } = require('react-redux')
+const { Link } = require('react-router')
+const request = require('superagent')
 
-module.exports = function App (props) {
-  console.log('props', props)
-  const { store, model } = props
+const App = (props) => {
+
+  const { userName } = props
 
   return (
     <div>
@@ -14,6 +16,9 @@ module.exports = function App (props) {
         <Form />
       </div><br/>
       <img src="http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg" width="400px" />
+      {props.children}
     </div>
   )
 }
+
+module.exports = connect((state) => state)(App)
