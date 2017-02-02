@@ -14,6 +14,8 @@ module.exports = function (db) {
 
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))
+  app.use(logger('dev'))
+  app.use(cookieParser())
 
   app.set('trust proxy', 1)
 
@@ -25,6 +27,8 @@ module.exports = function (db) {
   }))
 
   if (app.get('env') === 'development') {
+    //bundle client/index.js
+    //and serve it at GET /bundle.js
     const webpackDevMiddleware = require('webpack-dev-middleware')
     const config = require('./webpack.config')
     const webpack = require('webpack')
@@ -47,7 +51,7 @@ module.exports = function (db) {
 
   app.use('/', express.static(path.join(__dirname, 'public'))) //static files
 
-  app.use('/api/v1/', api.myRoute(db)) //routes
+  app.use('/api/v1/', api.routes(db)) //routes
 
   app.use(function(req, res, next) {
    const err = new Error('Not Found')

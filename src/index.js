@@ -1,32 +1,30 @@
+//logs
+const debug = require('debug')('index')
+localStorage.debug = '*'
+
+//modules
 const React = require('react')
 const ReactDOM = require('react-dom')
 const { Provider } = require('react-redux')
-const { createStore, applyMiddleware, compose } = require('redux')
+const { createStore } = require('redux')
 const createHistory = require('history').createHashHistory
 const { Router, Route, IndexRoute, hashHistory } = require('react-router')
-const request = require('superagent')
 const reducer = require('./reducer')
 const initialState = require('../state')
 
 // components
 const App = require('./components/app')
-
-const Form = require('./components/form')
+const LoginForm = require('./components/loginForm')
 const Profile = require('./components/profile')
 
-const store = createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-
-store.subscribe(()=> {
-	console.log('loggin state', store.getState());
-})
+const store = createStore(reducer, initialState)
 
 const Root = ({store}) => {
 	return (
 			<Provider store={store}>
 				<Router history={hashHistory}>
-					<Route path='/' component={App}>
-						<IndexRoute component={App} />
-						<Route path='/login' component={Form} />
+					<Route path='/' component={App} store={store}>
+						<Route path='/login' component={LoginForm} />
 						<Route path='/profile' component={Profile} />
 					</Route>
 				</Router>
@@ -34,13 +32,10 @@ const Root = ({store}) => {
 	)
 }
 
-document.addEventListener('DOMContentLoaded', (e) => {
-
-  console.log('DOMContentLoaded');
-  	const root = document.querySelector('#app')
-
-  	ReactDOM.render(
-  		<Root store={store}/>,
-  		root
-  	)
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.querySelector('#app')
+	ReactDOM.render(
+  	<Root store={store}/>,
+  	root
+  )
 })

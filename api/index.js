@@ -1,5 +1,5 @@
-const myRoute = require('./routes')
+const routes = require('./routes')
 
 module.exports = {
-  myRoute
+  routes
 }

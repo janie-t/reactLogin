@@ -1,31 +1,12 @@
 const debug = require('debug')('components:form')
 const React = require('react')
-const { Link } = require('react-router')
 const { connect } = require('react-redux')
-const _ = require('lodash')
 const request = require('superagent')
 
-class Form extends React.Component {
-  handleClick(e){
-    console.log('handleclick here');
-    e.preventDefault()
-    const { dispatch } = this.props
-    const username = this.refs.username.value
-    const password = this.refs.password.value
-
-    request.post('api/v1/login')
-      .send({ username, password })
-      .end((err, response) =>{
-        if (err) {
-          throw err
-        } else if (response.body.login) {
-          this.props.router.push(`users/${response.body.id}/profile`)
-          }
-      })
-  }
-
+class loginForm extends React.Component {
 
   render() {
+    debug(this.props)
     const { dispatch } = this.props
 
     return (
@@ -47,6 +28,22 @@ class Form extends React.Component {
       </div>
     )
   }
+
+  handleClick(e){
+    e.preventDefault()
+    const username = this.refs.username.value
+    const password = this.refs.password.value
+
+    request.post('api/v1/login')
+      .send({ username, password })
+      .end((err, response) => {
+        if (err) {
+          console.log('error in loginform', err);
+        } else {
+          this.props.router.push(`/profile`)
+          }
+      })
+  }
 }
 
-module.exports = connect((state) => state)(Form)
+module.exports = connect((state) => state)(loginForm)

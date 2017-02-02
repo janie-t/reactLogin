@@ -11,3 +11,43 @@ form {
   color: white;
   text-align: center;
 }
+
+.nav {
+  margin: auto;
+}
+
+ul {
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #DF01A5;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+li {
+    float: left;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-right: 1px solid #bbb;
+}
+
+li:last-child {
+    border-right: none;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #4000FF;
+}

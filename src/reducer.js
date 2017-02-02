@@ -6,18 +6,10 @@ module.exports = function (state, action){
 
 	switch (action.type) {
 
-		case "LOGOUT":
-			newState.userName = null
-			break;
-
-		case "LOGIN":
-			newState.userName = action.payload
-			newState.authErr = null
-			break;
+		//put cases in here
 
 		default:
 			return newState
 	}
-
 	return newState
 }

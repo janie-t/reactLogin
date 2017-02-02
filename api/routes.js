@@ -3,33 +3,36 @@ const route = express.Router();
 
 module.exports = function(db) {
 
-  route.get("/", get);
+  // /api/v1/
+  route.get('/users', getAllUsers);
+  route.get('/:id/profile', getUserById);
+  route.post('/login', login);
 
-  route.post("/login", post);
-
-  function get(req, res, next) {
-    alert('Kia ora, welcome')
+  function getAllUsers(req, res, next) {
+    db.getAllUsers()
+    .then(function(allUsers){
+      console.log('api/routes.js ', allUsers);
+      res.json(allUsers);
+    })
   }
 
-  function post(req, res, next) {
-    console.log("req.body", req.body);
-    req.session.username = req.body.username
-    req.session.password = req.body.password
-    const username = req.session.username
-    const password = req.session.password
-    const user = _.find(users, { 'username': name })
+  function getUserById(req, res, next) {
+    console.log('api/getUserById', req.params);
+    const id = req.params.id
+    db.displayUserByID(id)
+    .then(function(userData){
+      res.json(userData)
+    })
+  }
 
-    if(!user){
-      return res.redirect('/login')
-      } else if( user.password === req.body.password ){
-          req.session.isAuthenticated = true
-          req.session.isAdmin = user.isAdmin
-          res.redirect('/profile')
-        } else {
-          return alert('Do you need a password reminder?')
-          }
-
-    }
+  function login(req, res, next) {
+    const username = req.body.username
+    const password = req.body.password
+    db.findByUsername(username)
+    .then(function(user){
+      console.log('findByUsername returned', user);
+    })
+  }
 
   return route;
 };
