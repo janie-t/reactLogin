@@ -4,9 +4,14 @@ const React = require('react')
 
 const { connect } = require('react-redux')
 const { Link } = require('react-router')
+const Puppy = require('./puppy')
 
 const App = (props) => {
   debug({props})
+
+  const content = props.location.pathname === '/'
+    ? <Puppy />
+    : null
 
   return (
     <div>
@@ -20,11 +25,10 @@ const App = (props) => {
           </ul>
       </div><br/>
 
-      <img src="http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg" width="400px" />
-      {props.children}
+      {content}
 
+      {props.children}
     </div>
   )
 }
-      // {props.children}
 module.exports = connect((state) => state)(App)
