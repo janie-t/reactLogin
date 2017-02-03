@@ -6,10 +6,13 @@ module.exports = function (state, action){
 
 	switch (action.type) {
 
-		//put cases in here
+		case 'UPDATE_USER':
+			newState.username = action.payload
+			break;
 
 		default:
 			return newState
+
 	}
 	return newState
 }
