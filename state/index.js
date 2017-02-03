@@ -1,5 +1,3 @@
 module.exports = {
-	username: 'Fluffy',
-  password: 'password',
-  isAdmin: false
+	username: 'Fluffy'
 }

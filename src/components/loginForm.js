@@ -44,7 +44,7 @@ class loginForm extends React.Component {
         if (err) {
         console.log('error in loginform', err);
         } else if(response.body.isUser === false) {
-          this.props.router.push(`/login`)
+          this.props.router.push(`/`)
           } else {
               dispatch({type:'UPDATE_USER', payload: response.body.username})
               router.push(`/profile`) // /user/${user.id}/profile
